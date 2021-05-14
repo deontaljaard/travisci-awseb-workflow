@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run -e CI=true deontaljaard/travisci-awseb-workflow npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-central-1"
+  app: "travisci-awseb-workflow"
+  env: "Travisciawsebworkflow-env"
+  bucket_name: "elasticbeanstalk-eu-central-1-029061862148"
+  bucket_path: "travisci-awseb-workflow"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
