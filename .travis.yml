@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+language: generic
+
+before_install:
+  - docker build -t deontaljaard/travisci-awseb-workflow -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true deontaljaard/travisci-awseb-workflow npm run test -- --coverage
